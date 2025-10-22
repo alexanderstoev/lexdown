@@ -10,7 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lexical/code": "^0.37.0",
+    "@lexical/link": "^0.37.0",
+    "@lexical/list": "^0.37.0",
     "@lexical/react": "^0.37.0",
+    "@lexical/rich-text": "^0.37.0",
+    "@lexical/selection": "^0.37.0",
     "@tailwindcss/vite": "^4.1.15",
     "lexical": "^0.37.0",
     "lucide-react": "^0.546.0",

@@ -1,0 +1,26 @@
+/* make sure the editable area uses these classes from Lexical */
+.editor :where(.underline) {
+  text-decoration: underline;
+}
+
+.editor :where(.strikethrough) {
+  text-decoration: line-through;
+}
+
+/* optional: code / bold / italic defaults are usually visible, but you can enforce them */
+.editor :where(.bold) {
+  font-weight: 600;
+}
+.editor :where(.italic) {
+  font-style: italic;
+}
+
+/* list styles (if you had CSS issues hiding bullets) */
+.editor ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+}
+.editor ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+}

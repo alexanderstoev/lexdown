@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+.editor a {
+  text-decoration: underline;
+  @apply text-blue-400;
+}
+
+/* Typography */
+.lexdown-h1 {
+  @apply mb-2 text-2xl font-bold;
+}
+.lexdown-h2 {
+  @apply mb-1 text-xl font-semibold;
+}
+.lexdown-h3 {
+  @apply text-lg font-semibold;
+}
+.lexdown-paragraph {
+  @apply mb-2;
+}
+.lexdown-quote {
+  @apply border-l-4 border-gray-400 pl-3 text-gray-600 italic;
+}
+
+/* Inline formatting */
+.lexdown-bold {
+  @apply font-semibold;
+}
+.lexdown-italic {
+  @apply italic;
+}
+.lexdown-underline {
+  text-decoration: underline;
+}
+.lexdown-strikethrough {
+  text-decoration: line-through;
+}
+.lexdown-code {
+  @apply rounded bg-gray-100 px-1 font-mono dark:bg-zinc-800;
+}
+
+/* Lists */
+.lexdown-ul {
+  list-style-type: disc;
+  @apply ml-5;
+}
+.lexdown-ol {
+  list-style-type: decimal;
+  @apply ml-5;
+}
+.lexdown-li {
+  @apply mb-1;
+}

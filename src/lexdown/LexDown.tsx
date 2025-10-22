@@ -16,6 +16,15 @@ import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import InitialValuePlugin from "./plugins/InitialValuePlugin";
+import { HeadingNode, QuoteNode } from "@lexical/rich-text";
+import { ListItemNode, ListNode } from "@lexical/list";
+import { CodeNode } from "@lexical/code";
+import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+
+import "./theme/lexdownTheme.css";
+import lexdownTheme from "./theme/lexdownTheme";
+import { LinkNode } from "@lexical/link";
+import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 
 interface LexDownProps {
   value?: string;
@@ -25,7 +34,8 @@ interface LexDownProps {
 export const LexDown: React.FC<LexDownProps> = ({ onChange }) => {
   const initialConfig = {
     namespace: "LexDown",
-    nodes: [],
+    theme: lexdownTheme,
+    nodes: [HeadingNode, QuoteNode, ListNode, ListItemNode, CodeNode, LinkNode],
     onError: (error: Error) => console.error(error),
   };
 
@@ -43,7 +53,6 @@ export const LexDown: React.FC<LexDownProps> = ({ onChange }) => {
       <div className="overflow-hidden rounded-lg border shadow-sm">
         {/* Toolbar */}
         <ToolbarPlugin />
-        <InitialValuePlugin value={"bold italic code"} />
         {/* Editor */}
         <RichTextPlugin
           contentEditable={
@@ -52,6 +61,9 @@ export const LexDown: React.FC<LexDownProps> = ({ onChange }) => {
           placeholder={<div className="text-gray-400">Start typing...</div>}
           ErrorBoundary={LexicalErrorBoundary}
         />
+        <InitialValuePlugin value={"bold italic code under strike"} />
+        <ListPlugin />
+        <LinkPlugin />
         <HistoryPlugin />
         <OnChangePlugin onChange={handleChange} />
       </div>
