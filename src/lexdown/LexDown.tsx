@@ -8,19 +8,14 @@
  */
 
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import {
-  $getRoot,
-  FORMAT_TEXT_COMMAND,
-  type EditorState,
-  type LexicalEditor,
-} from "lexical";
-import { useState } from "react";
+import { $getRoot, type EditorState } from "lexical";
 import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
+import InitialValuePlugin from "./plugins/InitialValuePlugin";
 
 interface LexDownProps {
   value?: string;
@@ -34,8 +29,6 @@ export const LexDown: React.FC<LexDownProps> = ({ onChange }) => {
     onError: (error: Error) => console.error(error),
   };
 
-  const [editor] = useState<LexicalEditor | null>(null);
-
   // Called whenever the editor state changes
   const handleChange = (editorState: EditorState) => {
     editorState.read(() => {
@@ -45,31 +38,12 @@ export const LexDown: React.FC<LexDownProps> = ({ onChange }) => {
     });
   };
 
-  const applyFormat = (format: "bold" | "italic" | "code") => {
-    if (!editor) return;
-    switch (format) {
-      case "bold":
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
-        break;
-      case "italic":
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
-        break;
-      case "code":
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "code");
-        break;
-    }
-  };
-
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div className="overflow-hidden rounded-lg border shadow-sm">
         {/* Toolbar */}
-        <ToolbarPlugin
-          onBold={() => applyFormat("bold")}
-          onItalic={() => applyFormat("italic")}
-          onCode={() => applyFormat("code")}
-        />
-
+        <ToolbarPlugin />
+        <InitialValuePlugin value={"bold italic code"} />
         {/* Editor */}
         <RichTextPlugin
           contentEditable={
