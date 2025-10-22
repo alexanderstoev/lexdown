@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lexical/react": "^0.37.0",
     "@tailwindcss/vite": "^4.1.15",
+    "lexical": "^0.37.0",
+    "lucide-react": "^0.546.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.15"
