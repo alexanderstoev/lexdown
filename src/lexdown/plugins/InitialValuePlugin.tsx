@@ -9,7 +9,8 @@
 
 import { useEffect } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $getRoot, $createParagraphNode, $createTextNode } from "lexical";
+import { $getRoot } from "lexical";
+import { $convertFromMarkdownString, TRANSFORMERS } from "@lexical/markdown";
 
 interface InitialValuePluginProps {
   value: string;
@@ -22,7 +23,7 @@ const InitialValuePlugin: React.FC<InitialValuePluginProps> = ({ value }) => {
     editor.update(() => {
       const root = $getRoot();
       root.clear();
-      root.append($createParagraphNode().append($createTextNode(value)));
+      $convertFromMarkdownString(value, TRANSFORMERS);
     });
   }, [editor, value]);
 

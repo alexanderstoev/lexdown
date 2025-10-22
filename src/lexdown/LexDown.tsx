@@ -8,30 +8,32 @@
  */
 
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { $getRoot, type EditorState } from "lexical";
+import { type EditorState } from "lexical";
 import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import InitialValuePlugin from "./plugins/InitialValuePlugin";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { ListItemNode, ListNode } from "@lexical/list";
 import { CodeNode } from "@lexical/code";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 
+import { $convertToMarkdownString, TRANSFORMERS } from "@lexical/markdown";
+
 import "./theme/lexdownTheme.css";
 import lexdownTheme from "./theme/lexdownTheme";
 import { LinkNode } from "@lexical/link";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
+import InitialValuePlugin from "./plugins/InitialValuePlugin";
 
 interface LexDownProps {
   value?: string;
   onChange?: (markdown: string) => void;
 }
 
-export const LexDown: React.FC<LexDownProps> = ({ onChange }) => {
+export const LexDown: React.FC<LexDownProps> = ({ value, onChange }) => {
   const initialConfig = {
     namespace: "LexDown",
     theme: lexdownTheme,
@@ -41,10 +43,10 @@ export const LexDown: React.FC<LexDownProps> = ({ onChange }) => {
 
   // Called whenever the editor state changes
   const handleChange = (editorState: EditorState) => {
+    if (!onChange) return;
     editorState.read(() => {
-      const root = $getRoot();
-      const text = root.getTextContent();
-      if (onChange) onChange(text); // Replace with Markdown conversion later
+      const markdown = $convertToMarkdownString(TRANSFORMERS);
+      onChange(markdown);
     });
   };
 
@@ -61,10 +63,11 @@ export const LexDown: React.FC<LexDownProps> = ({ onChange }) => {
           placeholder={<div className="text-gray-400">Start typing...</div>}
           ErrorBoundary={LexicalErrorBoundary}
         />
-        <InitialValuePlugin value={"bold italic code under strike"} />
+
         <ListPlugin />
         <LinkPlugin />
         <HistoryPlugin />
+        <InitialValuePlugin value={value ?? ""} />
         <OnChangePlugin onChange={handleChange} />
       </div>
     </LexicalComposer>
