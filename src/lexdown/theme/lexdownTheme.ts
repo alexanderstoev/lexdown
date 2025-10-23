@@ -23,6 +23,7 @@ const lexdownTheme = {
       listitem: "lexdown-nested-li",
     },
   },
+  hr: "lexical-hr",
   text: {
     bold: "lexdown-bold",
     italic: "lexdown-italic",
