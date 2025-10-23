@@ -10,7 +10,8 @@
 import { useEffect } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getRoot } from "lexical";
-import { $convertFromMarkdownString, TRANSFORMERS } from "@lexical/markdown";
+import { $convertFromMarkdownString } from "@lexical/markdown";
+import { EXTENDED_TRANSFORMERS } from "../utils/extended-transformers";
 
 interface InitialValuePluginProps {
   value: string;
@@ -23,7 +24,7 @@ const InitialValuePlugin: React.FC<InitialValuePluginProps> = ({ value }) => {
     editor.update(() => {
       const root = $getRoot();
       root.clear();
-      $convertFromMarkdownString(value, TRANSFORMERS);
+      $convertFromMarkdownString(value, EXTENDED_TRANSFORMERS);
     });
   }, [editor, value]);
 

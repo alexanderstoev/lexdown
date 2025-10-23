@@ -20,13 +20,16 @@ import { ListItemNode, ListNode } from "@lexical/list";
 import { CodeNode } from "@lexical/code";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 
-import { $convertToMarkdownString, TRANSFORMERS } from "@lexical/markdown";
+import { $convertToMarkdownString } from "@lexical/markdown";
 
 import "./theme/lexdownTheme.css";
 import lexdownTheme from "./theme/lexdownTheme";
 import { LinkNode } from "@lexical/link";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import InitialValuePlugin from "./plugins/InitialValuePlugin";
+import { HorizontalRuleNode } from "@lexical/extension";
+import { HorizontalRulePlugin } from "@lexical/react/LexicalHorizontalRulePlugin";
+import { EXTENDED_TRANSFORMERS } from "./utils/extended-transformers";
 
 interface LexDownProps {
   value?: string;
@@ -37,7 +40,15 @@ export const LexDown: React.FC<LexDownProps> = ({ value, onChange }) => {
   const initialConfig = {
     namespace: "LexDown",
     theme: lexdownTheme,
-    nodes: [HeadingNode, QuoteNode, ListNode, ListItemNode, CodeNode, LinkNode],
+    nodes: [
+      HeadingNode,
+      QuoteNode,
+      ListNode,
+      ListItemNode,
+      CodeNode,
+      LinkNode,
+      HorizontalRuleNode,
+    ],
     onError: (error: Error) => console.error(error),
   };
 
@@ -45,7 +56,7 @@ export const LexDown: React.FC<LexDownProps> = ({ value, onChange }) => {
   const handleChange = (editorState: EditorState) => {
     if (!onChange) return;
     editorState.read(() => {
-      const markdown = $convertToMarkdownString(TRANSFORMERS);
+      const markdown = $convertToMarkdownString(EXTENDED_TRANSFORMERS);
       onChange(markdown);
     });
   };
@@ -67,6 +78,7 @@ export const LexDown: React.FC<LexDownProps> = ({ value, onChange }) => {
         <ListPlugin />
         <LinkPlugin />
         <HistoryPlugin />
+        <HorizontalRulePlugin />
         <InitialValuePlugin value={value ?? ""} />
         <OnChangePlugin onChange={handleChange} />
       </div>
