@@ -9,21 +9,22 @@
 
 const lexdownTheme = {
   paragraph: "lexdown-paragraph",
+  quote: "lexdown-quote",
   heading: {
     h1: "lexdown-h1",
     h2: "lexdown-h2",
     h3: "lexdown-h3",
   },
-  quote: "lexdown-quote",
   list: {
-    ul: "lexdown-ul",
-    ol: "lexdown-ol",
-    listitem: "lexdown-li",
     nested: {
       listitem: "lexdown-nested-li",
     },
+    ul: "lexdown-ul",
+    ol: "lexdown-ol",
+    listitem: "lexdown-li",
   },
-  hr: "lexical-hr",
+  link: "lexdown-link",
+  hr: "lexdown-hr",
   text: {
     bold: "lexdown-bold",
     italic: "lexdown-italic",
@@ -31,6 +32,7 @@ const lexdownTheme = {
     strikethrough: "lexdown-strikethrough",
     code: "lexdown-code",
   },
+  code: "lexdown-code-block",
 };
 
 export default lexdownTheme;

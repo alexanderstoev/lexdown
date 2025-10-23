@@ -27,6 +27,20 @@ This project was scafolded [T3 Stack](https://create.t3.gg/) as a foundation, wi
 
 ---
 
+Some code follows:
+\`\`\`js
+  const handleChange = (editorState: EditorState) => {
+    if (!onChange) return;
+    editorState.read(() => {
+      const markdown = $convertToMarkdownString(EXTENDED_TRANSFORMERS);
+      onChange(markdown);
+    });
+  };
+\`\`\`
+
+
+---
+
 ## Features
 
 - Organize content by **Initiatives**
